@@ -1,4 +1,4 @@
-"""Write tuning_report.md, the metric tables, and results/metrics.json."""
+"""Write tuning_report.md, the short metrics summary, and the charts."""
 
 from streamloop import _threads  # noqa: F401
 
@@ -15,8 +15,26 @@ METRIC_LABELS = {
     "precision_churn": "Precision (churn)",
 }
 
+# No alternate cut was measured on train or CV. Naming a number would be a new fit.
+DECISION_THRESHOLD_NOTE = (
+    "Bajar el umbral de decisión por debajo de 0,5 subiría el recall de cancelación, "
+    "a costa de más alertas; ese corte no se midió en entrenamiento ni en validación cruzada, "
+    "y no se calcula aquí para no volver a usar el test set."
+)
 
-def write_deliverables(result, root):
+
+def summary_metrics(result):
+    """Headline scores only. The statement does not ask for the full search dump."""
+    dataset = result.get("dataset") or {}
+    return {
+        "dataset_sha256": dataset.get("sha256"),
+        "baseline_metrics": {key: result["baseline"]["metrics"][key] for key in METRIC_KEYS},
+        "tuned_metrics": {key: result["tuned"]["metrics"][key] for key in METRIC_KEYS},
+        "final_hyperparameters": result["tuned"]["hyperparameters"],
+    }
+
+
+def write_deliverables(result, root, full_metrics_path=None):
     root = Path(root)
     figures = save_plots(result, root / "docs" / "figures")
     payload = _public_result(result)
@@ -28,7 +46,14 @@ def write_deliverables(result, root):
     results_dir = root / "results"
     results_dir.mkdir(parents=True, exist_ok=True)
     metrics_path = results_dir / "metrics.json"
-    metrics_path.write_text(json.dumps(payload, indent=2, allow_nan=False) + "\n", encoding="utf-8")
+    metrics_path.write_text(
+        json.dumps(summary_metrics(payload), indent=2, allow_nan=False) + "\n",
+        encoding="utf-8",
+    )
+    if full_metrics_path is not None:
+        full_path = Path(full_metrics_path)
+        full_path.parent.mkdir(parents=True, exist_ok=True)
+        full_path.write_text(json.dumps(payload, indent=2, allow_nan=False) + "\n", encoding="utf-8")
     report_path = root / "tuning_report.md"
     report_path.write_text(render_report(payload), encoding="utf-8")
     _replace_readme_markers(root / "README.md", payload)
@@ -72,7 +97,7 @@ def render_report(result):
     lines = [
         "# Informe de ajuste: clasificador de cancelación de StreamLoop",
         "",
-        "Este informe compara la línea base con hiperparámetros por defecto y el modelo elegido tras una búsqueda aleatoria seguida de una rejilla. Las cifras salen de `results/metrics.json`, generado por `python main.py`.",
+        "Este informe compara la línea base con hiperparámetros por defecto y el modelo elegido tras una búsqueda aleatoria seguida de una rejilla. `results/metrics.json` guarda solo la cabecera: F2, recall, precision, los hiperparámetros finales y el SHA-256 del CSV.",
         "",
         "## Resumen",
         "",
@@ -84,7 +109,8 @@ def render_report(result):
             f"y dispara {baseline['false_positive']} alertas de más. "
             f"El modelo final acierta {tuned['true_positive']} de {tuned['support_churn']} "
             f"y dispara {tuned['false_positive']} alertas de más. "
-            "Esa comparación no se usó para elegir hiperparámetros: el test set ya estaba cerrado."
+            "Esa comparación no se usó para elegir hiperparámetros: el test set ya estaba cerrado. "
+            + DECISION_THRESHOLD_NOTE
         ),
         "",
         "Accuracy no es la métrica de selección. Con los conteos anteriores se puede reconstruir, y no es lo que la búsqueda maximizó.",

@@ -36,7 +36,7 @@ python main.py
 python -m pytest -q
 ```
 
-`python main.py` downloads the official CSV (about 1 MB), checks its SHA-256, fits the baseline and both searches, and rewrites the report, `results/metrics.json`, the charts, and the tables in this file. On a 4-core machine the search is a few minutes: 24 random draws and up to 72 grid candidates, each with 5 stratified folds.
+`python main.py` downloads the official CSV (about 1 MB), checks its SHA-256, fits the baseline and both searches, and rewrites the report, the charts, the tables in this file, and a short `results/metrics.json` (headline metrics, final hyperparameters, and the CSV SHA-256). The full search dump is not part of the submission. On a 4-core machine the search is a few minutes: 24 random draws and up to 72 grid candidates, each with 5 stratified folds.
 
 The notebook `streamloop_churn_tuning.ipynb` calls the same `run_study` function. Re-executing it repeats the search and writes the same files:
 
@@ -86,7 +86,7 @@ The classifier family is a starting point. The graded part of the exercise is th
 | `src/streamloop/` | Data contract, pipeline, search, study, report. |
 | `tests/test_tuning.py` | Leakage, F2 scorer, near-tie rule, and a tiny end-to-end run. |
 | `tuning_report.md` | Baseline vs tuned comparison, final hyperparameters, stability note. |
-| `results/metrics.json` | Aggregates only. No customer rows. |
+| `results/metrics.json` | Short summary: baseline and tuned metrics, final hyperparameters, CSV SHA-256. |
 | `docs/figures/` | Charts written by `python main.py`. |
 | `server.py` | Unmodified python-hello boilerplate. Not used by the study. |
 | `learn.json` | Official project metadata from the syllabus commit in `PROVENANCE.md`. |

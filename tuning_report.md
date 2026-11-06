@@ -1,6 +1,6 @@
 # Informe de ajuste: clasificador de cancelación de StreamLoop
 
-Este informe compara la línea base con hiperparámetros por defecto y el modelo elegido tras una búsqueda aleatoria seguida de una rejilla. Las cifras salen de `results/metrics.json`, generado por `python main.py`.
+Este informe compara la línea base con hiperparámetros por defecto y el modelo elegido tras una búsqueda aleatoria seguida de una rejilla. `results/metrics.json` guarda solo la cabecera: F2, recall, precision, los hiperparámetros finales y el SHA-256 del CSV.
 
 ## Resumen
 
@@ -10,7 +10,7 @@ Este informe compara la línea base con hiperparámetros por defecto y el modelo
 | Recall (churn) | 0.5294 | 0.5267 | -0.0027 |
 | Precision (churn) | 0.6326 | 0.6724 | +0.0398 |
 
-En el test set, el F2 ajustado supera al de la línea base por 0.0033. La línea base acierta 198 de 374 cancelaciones y dispara 115 alertas de más. El modelo final acierta 197 de 374 y dispara 96 alertas de más. Esa comparación no se usó para elegir hiperparámetros: el test set ya estaba cerrado.
+En el test set, el F2 ajustado supera al de la línea base por 0.0033. La línea base acierta 198 de 374 cancelaciones y dispara 115 alertas de más. El modelo final acierta 197 de 374 y dispara 96 alertas de más. Esa comparación no se usó para elegir hiperparámetros: el test set ya estaba cerrado. Bajar el umbral de decisión por debajo de 0,5 subiría el recall de cancelación, a costa de más alertas; ese corte no se midió en entrenamiento ni en validación cruzada, y no se calcula aquí para no volver a usar el test set.
 
 Accuracy no es la métrica de selección. Con los conteos anteriores se puede reconstruir, y no es lo que la búsqueda maximizó.
 

@@ -4,6 +4,8 @@ The end-to-end case uses a tiny in-memory table. It does not download the
 IBM file and it does not stand in for those customers.
 """
 
+import json
+
 import numpy as np
 import pandas as pd
 import pytest
@@ -28,7 +30,13 @@ from streamloop.pipeline import (
     fit_baseline,
     parameter_overrides,
 )
-from streamloop.report import render_report, replace_marked_block, write_deliverables
+from streamloop.report import (
+    DECISION_THRESHOLD_NOTE,
+    render_report,
+    replace_marked_block,
+    summary_metrics,
+    write_deliverables,
+)
 from streamloop.search import (
     BROAD_SPACE,
     DEFAULT_CAPS,
@@ -350,9 +358,20 @@ def test_end_to_end_study_keeps_the_test_set_out_of_search(monkeypatch, tmp_path
     assert (tmp_path / "docs" / "figures" / "grid_fold_stability.png").is_file()
     assert (tmp_path / "docs" / "figures" / "random_search_scores.png").is_file()
     metrics_text = (tmp_path / "results" / "metrics.json").read_text(encoding="utf-8")
+    summary = json.loads(metrics_text)
+    assert set(summary) == {
+        "dataset_sha256",
+        "baseline_metrics",
+        "tuned_metrics",
+        "final_hyperparameters",
+    }
+    assert summary == summary_metrics(result)
+    assert "candidates" not in metrics_text
     assert "id-0" not in metrics_text
+    assert DECISION_THRESHOLD_NOTE in report
     rendered = render_report(result)
     assert "F2" in rendered
+    assert DECISION_THRESHOLD_NOTE in rendered
 
 
 def test_replace_marked_block():

@@ -36,7 +36,7 @@ python main.py
 python -m pytest -q
 ```
 
-`python main.py` descarga el CSV oficial (alrededor de 1 MB), comprueba su SHA-256, ajusta la línea base y las dos búsquedas, y reescribe el informe, `results/metrics.json`, las gráficas y las tablas de este archivo. En una máquina de 4 núcleos la búsqueda tarda unos minutos: 24 extracciones aleatorias y hasta 72 candidatos de rejilla, cada uno con 5 pliegues estratificados.
+`python main.py` descarga el CSV oficial (alrededor de 1 MB), comprueba su SHA-256, ajusta la línea base y las dos búsquedas, y reescribe el informe, las gráficas, las tablas de este archivo y un `results/metrics.json` corto (métricas de cabecera, hiperparámetros finales y el SHA-256 del CSV). El volcado completo de la búsqueda no forma parte de la entrega. En una máquina de 4 núcleos la búsqueda tarda unos minutos: 24 extracciones aleatorias y hasta 72 candidatos de rejilla, cada uno con 5 pliegues estratificados.
 
 El notebook `streamloop_churn_tuning.ipynb` llama a la misma función `run_study`. Volver a ejecutarlo repite la búsqueda y escribe los mismos archivos. El comando está en el README en inglés.
 
@@ -74,7 +74,7 @@ La familia del clasificador es un punto de partida. Lo que evalúa el ejercicio 
 | `src/streamloop/` | Contrato de datos, pipeline, búsqueda, estudio e informe. |
 | `tests/test_tuning.py` | Fugas, scorer F2, regla de empate y una corrida mínima de punta a punta. |
 | `tuning_report.md` | Comparación línea base vs ajustado, hiperparámetros finales y nota de estabilidad. |
-| `results/metrics.json` | Solo agregados. Sin filas de clientes. |
+| `results/metrics.json` | Resumen corto: métricas de línea base y modelo ajustado, hiperparámetros finales y SHA-256 del CSV. |
 | `docs/figures/` | Gráficas que escribe `python main.py`. |
 | `server.py` | Boilerplate de python-hello, sin cambios. El estudio no lo usa. |
 | `learn.json` | Metadatos oficiales del commit de syllabus citado en `PROVENANCE.md`. |

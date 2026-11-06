@@ -28,7 +28,11 @@ def main():
         print(f"error: could not load the official dataset: {exc}", file=sys.stderr)
         return 1
     result = run_study(frame, config=PRODUCTION_CONFIG, dataset_meta=meta)
-    write_deliverables(result, ROOT)
+    write_deliverables(
+        result,
+        ROOT,
+        full_metrics_path=Path("/opt/cursor/artifacts/metrics_full.json"),
+    )
     print(render_summary(result), end="")
     return 0
 

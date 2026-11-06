@@ -38,8 +38,8 @@ Upstream credits stay in the python-hello repository. They are not listed as aut
 
 - URL required by the statement: `https://raw.githubusercontent.com/IBM/telco-customer-churn-on-icp4d/master/data/Telco-Customer-Churn.csv`
 - No Kaggle login and no mirror. `python main.py` downloads the file, checks SHA-256 `16320c9c1ec72448db59aa0a26a0b95401046bef5d02fd3aeb906448e3055e91`, and checks 7043 rows.
-- The CSV is not committed. There is no serialized model in git. `results/metrics.json` stores aggregate scores and hyperparameters only.
+- The CSV is not committed. There is no serialized model in git. `results/metrics.json` stores only the headline metrics, the final hyperparameters, and the CSV SHA-256. The full search dump is not part of the submission.
 
 ## What a run writes
 
-`python main.py` regenerates `tuning_report.md`, `results/metrics.json`, `docs/figures/*.png`, and the metric tables in both READMEs.
+`python main.py` regenerates `tuning_report.md`, the short `results/metrics.json`, `docs/figures/*.png`, and the metric tables in both READMEs. A full metrics dump, when written, goes outside the repo.
