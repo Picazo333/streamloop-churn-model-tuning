@@ -1,7 +1,7 @@
 # Checkpoint de auditoría — actividad 55 de la plataforma
 
 **Para:** Auditor — Rodrigo Salcedo (independiente; nunca es el autor de este trabajo).
-**Fecha de este checkpoint:** 13 nov 2026, 10:35 (hora de CDMX).
+**Fecha de este checkpoint:** 13 nov 2026, 11:15 (hora de CDMX).
 **Regla de veredicto:** si el trabajo **pasa la rúbrica oficial**, se da por bueno aunque haya hallazgos menores o irrelevantes. Solo un hallazgo **GRAVE** bloquea. GRAVE = rompe un criterio de la rúbrica o la seguridad (secretos, auth, inyección, pérdida de datos). MENOR se reporta y no bloquea. IRRELEVANTE se anota y no retrasa.
 
 ## Actividad
@@ -13,17 +13,18 @@
 | Slug | `streamloop-churn-model-tuning` |
 | Tarea LMS | 1022122 |
 | Enlace LMS | https://learn.4geeks.com/main-cohort/latam-aie-pt-6/syllabus/latam-models-training-rag/project/streamloop-churn-model-tuning?moduleId=6 |
-| Repositorio | `Picazo333/streamloop-churn-model-tuning` (Independiente) |
+| Repositorio | `Picazo333/streamloop-churn-model-tuning` (independiente) |
 | PR | https://github.com/Picazo333/streamloop-churn-model-tuning/pull/1 |
 | Rama | `cursor/streamloop-churn-tuning-de5c` |
-| Head al emitir este archivo | `75a3998e59` — [árbol](https://github.com/Picazo333/streamloop-churn-model-tuning/tree/cursor/streamloop-churn-tuning-de5c) |
-| Estado LMS (13 nov 2026, API viva) | No |
+| Head auditado (esta pasada) | `748058da2f0a17f39123524f03897b47260b706f` |
+| Estado LMS (13 nov 2026, API viva, GET) | PENDING / PENDING, `github_url` vacío (tarea 1022122) |
 
 ## Rúbrica de referencia
 
-Enunciado oficial: /workspace/ejecucion/037-streamloop-churn-model-tuning/source/. 25/25 required según el autor; R29 es envío (HITL). Sin UI.
+Enunciado oficial: `/workspace/ejecucion/037-streamloop-churn-model-tuning/source/OFFICIAL_README.md` @ syllabus `fd2da034`, L85–L92. Primera pasada.
 
 El auditor no usa como única fuente la autoevaluación del autor. Contrasta con el enunciado oficial. No reescribe el código, no hace merge, no envía al LMS y un autor nunca audita su propio trabajo.
+
 
 ## Qué intentar romper (de todas las formas razonables)
 
@@ -41,10 +42,11 @@ El auditor no usa como única fuente la autoevaluación del autor. Contrasta con
 
 | ID | Severidad (GRAVE / MENOR / IRRELEVANTE) | Dónde (archivo, línea, SHA, comando) | Qué se observó | Criterio de rúbrica afectado | ¿Bloquea? |
 |---|---|---|---|---|---|
-| H1 |  |  |  |  |  |
-| H2 |  |  |  |  |  |
+| H1 | IRRELEVANTE | `results/metrics.json`; F2 0,5473 → 0,5506 (Δ +0,0033). | Ganancia pequeña. El oficial pide el proceso (Pipeline, RandomizedSearch luego Grid, F2), no un umbral de mejora. El test se puntúa solo dos veces (línea base y final); no hay fuga. | No rompe L85–L92. | No |
 
-Añade filas según haga falta. Si no hay hallazgos, dilo explícitamente.
+No hay hallazgos GRAVE. GRAVE 0, MENOR 0, IRRELEVANTE 1.
+
+HITL abiertos, no bloquean: envío al LMS (tarea 1022122, PENDING); merge. No son GRAVE.
 
 ## Veredicto
 
@@ -52,10 +54,16 @@ Añade filas según haga falta. Si no hay hallazgos, dilo explícitamente.
 - **NO READY** — hay al menos un GRAVE, o un criterio obligatorio en FAIL / UNVERIFIED que no sea HITL explícito de Miguel.
 - Los HITL de Miguel (merge, envío al LMS, VPS, key de LLM, prueba en dispositivo, video) no restan del porcentaje de la rúbrica y no los cierra el auditor.
 
+## Veredicto del auditor (13 nov 2026)
+
+- **READY / PASA. Primera pasada. pytest 15/15. Pipeline + RandomizedSearch + Grid, F2. 0 GRAVE.**
+- Conteos: GRAVE 0, MENOR 0, IRRELEVANTE 1.
+- Informe: `AUDIT_REPORT_55_streamloop-churn-model-tuning.md (solo local / academic; no se publica en el repo independiente)`.
+
 ## Dónde dejar el reporte
 
-1. En esta misma rama, en `AUDIT_REPORT.md` (no en `main`; no se hace merge).
-2. Una copia en `/workspace/intake/zip_1112/runtime-private/academic/` con un nombre que no pise un recibo anterior.
+1. En esta misma rama, en el `AUDIT_CHECKPOINT.md` de la raíz (único fichero de auditoría que se publica en repos independientes). No se publica el informe aparte en la raíz.
+2. Una copia en `/workspace/intake/zip_1112/runtime-private/academic/055_ADVERSARIAL_AUDIT_2026-11-13.md` (sin pisar recibos `*_INDEPENDENT_REVIEW.md`).
 3. Avisa al Orquestador. No comentes en el LMS ni pidas tú más datos a los profesores.
 
 ## Estado portable de la cohorte
