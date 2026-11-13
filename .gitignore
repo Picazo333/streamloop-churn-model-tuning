@@ -1,0 +1,14 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ipynb_checkpoints/
+.venv/
+venv/
+data/
+*.csv
+models/
+*.joblib
+*.pkl
+*.pickle
+.mypy_cache/
+.ruff_cache/

@@ -1,0 +1,44 @@
+{
+  "gitpod": true,
+  "title": {
+    "en": "StreamLoop — Tuning the Churn Model",
+    "es": "StreamLoop — Ajustando el Modelo de Cancelación"
+  },
+  "description": {
+    "en": "Systematically tune a churn classifier on StreamLoop's telecom-style customer dataset: build a sklearn Pipeline with preprocessing inside, record a default-hyperparameter baseline on a held-out test set, run RandomizedSearchCV then GridSearchCV on train only with a business-aligned scoring metric, inspect cv_results_ for fold stability, and deliver tuning_report.md comparing baseline vs tuned performance.",
+    "es": "Ajusta de forma sistemática un clasificador de cancelación sobre el dataset de clientes estilo telecom de StreamLoop: construye un Pipeline de sklearn con preprocesamiento interno, registra una línea base con hiperparámetros por defecto en un test set reservado, ejecuta RandomizedSearchCV y luego GridSearchCV solo sobre entrenamiento con una métrica alineada al negocio, revisa cv_results_ por estabilidad entre folds, y entrega tuning_report.md comparando línea base vs modelo ajustado."
+  },
+  "status": "draft",
+  "template_url": "https://github.com/4GeeksAcademy/python-hello",
+  "slug": "streamloop-churn-model-tuning",
+  "coverImage": "ai-coding.svg",
+  "difficulty": "intermediate",
+  "duration": 3,
+  "technologies": [
+    "python",
+    "scikit-learn",
+    "pandas",
+    "machine-learning",
+    "classification",
+    "hyperparameter-tuning",
+    "cross-validation",
+    "technical-documentation"
+  ],
+  "translations": ["es", "en"],
+  "projectType": "project",
+  "telemetry": {
+    "batch": "https://breathecode.herokuapp.com/v1/assignment/me/telemetry?asset_id=3775"
+  },
+  "solution": "https://github.com/4GeeksAcademy/ai-engineering-syllabus/blob/main/content/projects/streamloop-churn-model-tuning/.learn/solution/README.md",
+  "preview": "https://raw.githubusercontent.com/4GeeksAcademy/ai-engineering-syllabus/main/content/projects/streamloop-churn-model-tuning/.learn/preview.png",
+  "sharing": [
+    {
+      "en": "I just completed StreamLoop — Tuning the Churn Model with LearnPack @4GeeksAcademy. Built a sklearn Pipeline, ran RandomizedSearchCV → GridSearchCV on train only, chose a business-aligned metric, and documented stability trade-offs in tuning_report.md. Check it out: https://github.com/4GeeksAcademy/ai-engineering-syllabus/tree/main/content/projects/streamloop-churn-model-tuning #AIEngineering #LearnPack #4GeeksAcademy #python #scikitlearn #machinelearning",
+      "es": "Acabo de completar StreamLoop — Ajustando el Modelo de Cancelación con LearnPack @4GeeksAcademy. Construí un Pipeline de sklearn, corrí RandomizedSearchCV → GridSearchCV solo en entrenamiento, elegí una métrica alineada al negocio y documenté trade-offs de estabilidad en tuning_report.md. Míralo: https://github.com/4GeeksAcademy/ai-engineering-syllabus/tree/main/content/projects/streamloop-churn-model-tuning #AIEngineering #LearnPack #4GeeksAcademy #python #scikitlearn #machinelearning"
+    },
+    {
+      "en": "Built and shipped: StreamLoop — Tuning the Churn Model. Learning by building with @4GeeksAcademy. Baseline vs tuned comparison, cv_results_ stability review, and test-set discipline (touched exactly twice). https://github.com/4GeeksAcademy/ai-engineering-syllabus/tree/main/content/projects/streamloop-churn-model-tuning #AIEngineering #LearnPack #4GeeksAcademy #python #hyperparametertuning #churn",
+      "es": "Construido y publicado: StreamLoop — Ajustando el Modelo de Cancelación. Aprendiendo con proyectos reales en @4GeeksAcademy. Comparación línea base vs ajustado, revisión de estabilidad en cv_results_, y disciplina del test set (tocado exactamente dos veces). https://github.com/4GeeksAcademy/ai-engineering-syllabus/tree/main/content/projects/streamloop-churn-model-tuning #AIEngineering #LearnPack #4GeeksAcademy #python #hyperparametertuning #churn"
+    }
+  ]
+}
